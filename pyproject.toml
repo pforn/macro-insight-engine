@@ -10,3 +10,8 @@ dependencies = [
     "ruff>=0.15.0",
     "yt-dlp>=2025.10.14",
 ]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.2",
+]
