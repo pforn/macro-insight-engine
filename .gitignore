@@ -1,0 +1,9 @@
+# Local state / Logs
+archive.txt
+downloads/
+test_downloads/
+.venv/
+.env
+
+# Mac system files
+.DS_Store
