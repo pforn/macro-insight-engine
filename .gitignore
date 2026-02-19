@@ -1,0 +1,11 @@
+# Local state / Logs
+archive.txt
+downloads/
+test_downloads/
+.venv/
+.env
+dump/
+__pycache__/
+
+# Mac system files
+.DS_Store
