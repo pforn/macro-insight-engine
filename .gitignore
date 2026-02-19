@@ -6,6 +6,7 @@ test_downloads/
 .env
 dump/
 __pycache__/
+GEMINI.md
 
 # Mac system files
 .DS_Store
