@@ -6,7 +6,9 @@ making it the single seam where tests inject mocks.
 
 from __future__ import annotations
 
+import json
 import time
+from typing import Any
 
 from google import genai
 from google.genai import types
@@ -77,3 +79,43 @@ def generate_summary(
         config=types.GenerateContentConfig(system_instruction=system_prompt),
     )
     return response.text or ""
+
+
+def generate_structured(
+    client: genai.Client,
+    model: str,
+    content: Any,
+    user_prompt: str,
+    system_prompt: str,
+    response_schema: type,
+    temperature: float = 0.0,
+) -> dict[str, Any]:
+    """Send a prompt to Gemini and return a JSON-parsed dict conforming to *response_schema*.
+
+    Uses Gemini's structured-output mode (``response_mime_type="application/json"``
+    plus ``response_schema``) to guarantee the response matches the Pydantic model.
+
+    Args:
+        client: An authenticated Gemini client.
+        model: Model identifier (e.g. ``gemini-2.5-flash``).
+        content: Primary content (e.g. an uploaded audio File, or a text string).
+        user_prompt: The user-facing prompt to accompany the content.
+        system_prompt: System instruction for the model.
+        response_schema: A Pydantic ``BaseModel`` subclass describing the output shape.
+        temperature: Sampling temperature. Defaults to 0.0 for determinism.
+
+    Returns:
+        A dict parsed from the model's JSON response.
+    """
+    config = types.GenerateContentConfig(
+        system_instruction=system_prompt,
+        response_mime_type="application/json",
+        response_schema=response_schema,
+        temperature=temperature,
+    )
+    response = client.models.generate_content(
+        model=model,
+        contents=[content, user_prompt],
+        config=config,
+    )
+    return json.loads(response.text or "{}")

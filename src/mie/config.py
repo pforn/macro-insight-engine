@@ -12,6 +12,7 @@ PROJECT_ROOT: Path = Path(__file__).resolve().parents[2]  # repo root
 DOWNLOADS_DIR: Path = PROJECT_ROOT / "downloads"
 OUTPUT_DIR: Path = PROJECT_ROOT / "dump"
 ARCHIVE_PATH: Path = PROJECT_ROOT / "archive.txt"
+SOURCES_PATH: Path = PROJECT_ROOT / "sources.yaml"
 
 # ── Gemini ──────────────────────────────────────────────────────────────────
 GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
