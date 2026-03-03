@@ -13,6 +13,7 @@ DOWNLOADS_DIR: Path = PROJECT_ROOT / "downloads"
 OUTPUT_DIR: Path = PROJECT_ROOT / "dump"
 ARCHIVE_PATH: Path = PROJECT_ROOT / "archive.txt"
 SOURCES_PATH: Path = PROJECT_ROOT / "sources.yaml"
+POSITIONS_PATH: Path = PROJECT_ROOT / "positions.yaml"
 
 # ── Gemini ──────────────────────────────────────────────────────────────────
 GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
