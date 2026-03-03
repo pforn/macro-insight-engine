@@ -12,6 +12,9 @@ from mie.schemas import (
     ControversyTopic,
     KeyClaim,
     PodcastAnalysis,
+    PortfolioRiskReport,
+    Position,
+    RiskAssessment,
     TopicAnalysis,
     TopicSentiment,
     UniqueInsight,
@@ -166,3 +169,76 @@ def test_comparison_report_roundtrip_json() -> None:
 def test_comparison_report_requires_episodes() -> None:
     report = _make_comparison_report()
     assert len(report.episodes_analyzed) == 2
+
+
+# ── Position ─────────────────────────────────────────────────────────────────
+
+
+def test_position_valid() -> None:
+    p = Position(ticker="TLT", type="Long", thesis="Rates peaking")
+    assert p.ticker == "TLT"
+    assert p.type == "Long"
+
+
+def test_position_invalid_type() -> None:
+    with pytest.raises(ValidationError):
+        Position(ticker="TLT", type="Flat", thesis="Neutral")  # type: ignore[arg-type]
+
+
+# ── RiskAssessment ───────────────────────────────────────────────────────────
+
+
+def test_risk_assessment_valid() -> None:
+    r = RiskAssessment(
+        ticker="TLT",
+        risk_level="High",
+        reasoning="Consensus is bearish on bonds.",
+        relevant_topics=["Fed Rates"],
+        conflicting_insights=["Fed will hike."],
+    )
+    assert r.risk_level == "High"
+    assert len(r.relevant_topics) == 1
+
+
+def test_risk_assessment_invalid_risk_level() -> None:
+    with pytest.raises(ValidationError):
+        RiskAssessment(
+            ticker="TLT",
+            risk_level="Extreme",  # type: ignore[arg-type]
+            reasoning="Bad",
+            relevant_topics=[],
+            conflicting_insights=[],
+        )
+
+
+# ── PortfolioRiskReport ─────────────────────────────────────────────────────
+
+
+def test_portfolio_risk_report_roundtrip_json() -> None:
+    report = PortfolioRiskReport(
+        positions_analyzed=1,
+        risks=[
+            RiskAssessment(
+                ticker="USD/JPY",
+                risk_level="Medium",
+                reasoning="Mixed signals.",
+                relevant_topics=["JPY", "Fed Policy"],
+                conflicting_insights=["BOJ may tighten."],
+            )
+        ],
+        overall_portfolio_risk="Medium",
+        summary="Moderate risk.",
+    )
+    json_str = report.model_dump_json()
+    restored = PortfolioRiskReport.model_validate_json(json_str)
+    assert restored == report
+
+
+def test_portfolio_risk_report_invalid_overall_risk() -> None:
+    with pytest.raises(ValidationError):
+        PortfolioRiskReport(
+            positions_analyzed=0,
+            risks=[],
+            overall_portfolio_risk="Critical",  # type: ignore[arg-type]
+            summary="Bad",
+        )

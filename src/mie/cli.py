@@ -18,6 +18,7 @@ from mie.processing.analyzer import (
     compare_episodes,
     load_cached_analyses,
 )
+from mie.processing.risk_analyzer import assess_portfolio_risk
 
 
 def _cmd_check(args: argparse.Namespace) -> None:
@@ -166,6 +167,31 @@ def _cmd_add(args: argparse.Namespace) -> None:
     print(f"Added: {channel_name} ({channel_id})")
 
 
+def _cmd_risk(args: argparse.Namespace) -> None:
+    """Assess portfolio risk based on cached comparison reports."""
+    analyses = load_cached_analyses()
+    if len(analyses) < 2:
+        print("Need at least 2 cached analyses to assess risk.", file=sys.stderr)
+        sys.exit(1)
+
+    print(f"Generating comparison report for {len(analyses)} episodes...")
+    report = compare_episodes(analyses)
+
+    risk_report = assess_portfolio_risk(report)
+
+    if args.json:
+        print(risk_report.model_dump_json(indent=2))
+    else:
+        print(f"\nPortfolio Risk Assessment")
+        print(f"  Overall Risk: {risk_report.overall_portfolio_risk}")
+        print(f"  Positions Analyzed: {risk_report.positions_analyzed}")
+        print(f"  Summary: {risk_report.summary}")
+        print("\n  Position Risks:")
+        for r in risk_report.risks:
+            print(f"    - {r.ticker}: {r.risk_level}")
+            print(f"      Reasoning: {r.reasoning}")
+
+
 def main() -> None:
     """Parse CLI arguments and dispatch to the appropriate subcommand."""
     parser = argparse.ArgumentParser(
@@ -206,6 +232,9 @@ def main() -> None:
     add_parser = sub.add_parser("add", help="Add a YouTube channel to track")
     add_parser.add_argument("channel_url", help="YouTube channel URL (e.g. https://www.youtube.com/@ChannelName)")
 
+    risk_parser = sub.add_parser("risk", help="Assess portfolio risk based on cached analyses")
+    risk_parser.add_argument("--json", action="store_true", help="Print full JSON output")
+
     dispatch = {
         "check": _cmd_check,
         "run": _cmd_run,
@@ -213,6 +242,7 @@ def main() -> None:
         "add": _cmd_add,
         "analyze": _cmd_analyze,
         "compare": _cmd_compare,
+        "risk": _cmd_risk,
     }
 
     args = parser.parse_args()

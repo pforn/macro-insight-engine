@@ -1,0 +1,7 @@
+trades:
+  - ticker: "TLT"
+    type: "Long"
+    thesis: "Rates peaking in Q1"
+  - ticker: "USD/JPY"
+    type: "Short"
+    thesis: "BOJ policy shift"

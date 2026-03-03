@@ -6,6 +6,9 @@ Pass 1 models (per-podcast extraction):
 Pass 2 models (cross-podcast comparison):
     ControversyPosition, AgreementTopic, ControversyTopic,
     UniqueInsight, TopicSentiment, ComparisonReport
+
+Pass 3 models (portfolio risk assessment):
+    Position, RiskAssessment, PortfolioRiskReport
 """
 
 from __future__ import annotations
@@ -16,6 +19,7 @@ from pydantic import BaseModel
 
 SentimentType = Literal["bullish", "bearish", "neutral", "mixed"]
 ConfidenceType = Literal["high", "medium", "low"]
+RiskLevel = Literal["High", "Medium", "Low"]
 
 
 # ── Pass 1: Per-podcast extraction ──────────────────────────────────────────
@@ -105,3 +109,32 @@ class ComparisonReport(BaseModel):
     unique_insights: list[UniqueInsight]
     overall_market_sentiment: SentimentType
     sentiment_by_topic: list[TopicSentiment]
+
+
+# ── Pass 3: Portfolio Risk Assessment ──────────────────────────────────────
+
+class Position(BaseModel):
+    """A user-defined market position."""
+    
+    ticker: str
+    type: Literal["Long", "Short"]
+    thesis: str
+
+
+class RiskAssessment(BaseModel):
+    """Risk assessment for a specific position based on market insights."""
+    
+    ticker: str
+    risk_level: RiskLevel
+    reasoning: str
+    relevant_topics: list[str]
+    conflicting_insights: list[str]
+
+
+class PortfolioRiskReport(BaseModel):
+    """Overall risk report for the user's portfolio."""
+    
+    positions_analyzed: int
+    risks: list[RiskAssessment]
+    overall_portfolio_risk: RiskLevel
+    summary: str
