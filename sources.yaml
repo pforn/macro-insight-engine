@@ -1,0 +1,50 @@
+channels:
+  - name: "Wealthion"
+    channel_id: "UCKMeK-HGHfUFFArZ91rzv5A"
+    keywords: []
+    enabled: true
+
+  - name: "Eurodollar University"
+    channel_id: "UCrXNkk4IESnqU-8GMad2vyA"
+    keywords: []
+    enabled: true
+
+  - name: "The Market Huddle"
+    channel_id: "UCTNgTBKATr18Z7kR32rKOBw"
+    keywords: []
+    enabled: true
+
+  - name: "David Lin Report"
+    channel_id: "UClBMLpP3UHXLmgEypMmXPuA"
+    keywords: []
+    enabled: true
+
+  - name: "Real Vision Finance"
+    channel_id: "UCGXWKlq1Oxr3ddEtmKhAkPg"
+    keywords: []
+    enabled: true
+
+  - name: "George Gammon"
+    channel_id: "UCpvyOqtEc86X8w8_Se0t4-w"
+    keywords: []
+    enabled: true
+
+  - name: "The Compound"
+    channel_id: "UCBRpqrzuuqE8TZcWw75JSdw"
+    keywords: []
+    enabled: true
+
+  - name: "Bloomberg Podcasts"
+    channel_id: "UChF5O40UBqAc82I7-i5ig6A"
+    keywords: ["odd lots"]
+    enabled: true
+
+  - name: "Kitco NEWS"
+    channel_id: "UC9ijza42jVR3T6b8bColgvg"
+    keywords: []
+    enabled: true
+
+  - name: "Blockworks"
+    channel_id: "UCgK_jxvgUZ7iJKlZUS3YvuA"
+    keywords: ["forward guidance"]
+    enabled: true

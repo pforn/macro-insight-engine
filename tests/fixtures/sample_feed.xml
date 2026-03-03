@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns:yt="http://www.youtube.com/xml/schemas/2015"
+      xmlns:media="http://search.yahoo.com/mrss/"
+      xmlns="http://www.w3.org/2005/Atom">
+  <link rel="self" href="http://www.youtube.com/feeds/videos.xml?channel_id=UC_TEST_CHANNEL"/>
+  <id>yt:channel:UC_TEST_CHANNEL</id>
+  <yt:channelId>UC_TEST_CHANNEL</yt:channelId>
+  <title>Test Macro Podcast</title>
+  <link rel="alternate" href="https://www.youtube.com/channel/UC_TEST_CHANNEL"/>
+  <author>
+    <name>Test Macro Podcast</name>
+    <uri>https://www.youtube.com/channel/UC_TEST_CHANNEL</uri>
+  </author>
+  <published>2024-01-01T00:00:00+00:00</published>
+  <entry>
+    <id>yt:video:abc123</id>
+    <yt:videoId>abc123</yt:videoId>
+    <yt:channelId>UC_TEST_CHANNEL</yt:channelId>
+    <title>Forward Guidance: Fed Rate Decision Deep Dive</title>
+    <link rel="alternate" href="https://www.youtube.com/watch?v=abc123"/>
+    <published>2026-02-28T12:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>yt:video:def456</id>
+    <yt:videoId>def456</yt:videoId>
+    <yt:channelId>UC_TEST_CHANNEL</yt:channelId>
+    <title>Weekly Crypto Roundup</title>
+    <link rel="alternate" href="https://www.youtube.com/watch?v=def456"/>
+    <published>2026-02-27T12:00:00+00:00</published>
+  </entry>
+  <entry>
+    <id>yt:video:ghi789</id>
+    <yt:videoId>ghi789</yt:videoId>
+    <yt:channelId>UC_TEST_CHANNEL</yt:channelId>
+    <title>Forward Guidance: Tariff Impact on Bond Markets</title>
+    <link rel="alternate" href="https://www.youtube.com/watch?v=ghi789"/>
+    <published>2026-02-26T12:00:00+00:00</published>
+  </entry>
+</feed>
