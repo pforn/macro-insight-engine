@@ -133,6 +133,10 @@ def _cmd_add(args: argparse.Namespace) -> None:
         print(f"Failed to resolve channel: {exc}", file=sys.stderr)
         sys.exit(1)
 
+    if info is None:
+        print("Could not retrieve channel info.", file=sys.stderr)
+        sys.exit(1)
+
     channel_id = info.get("channel_id") or ""
     channel_name = info.get("channel") or info.get("uploader") or ""
 
